@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { searchGoogleNews } = require('./newsService');
+const cors = require('cors');
 const PORT = 3000;
 
 app.use(cors());
