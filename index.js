@@ -3,6 +3,8 @@ const app = express();
 const { searchGoogleNews } = require('./newsService');
 const PORT = 3000;
 
+app.use(cors());
+
 app.use(express.json());
 
 app.get('/api', async (req, res) => {
