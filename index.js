@@ -1,24 +1,23 @@
-require('dotenv').config();
+const express = require('express');
+const app = express();
+const { searchGoogleNews } = require('./newsService');
+const PORT = 3000;
 
-const { google } = require('googleapis');
-const customsearch = google.customsearch('v1');
+app.use(express.json());
 
-const API_KEY = process.env.API_KEY;
-const CX = process.env.CX;
+app.get('/api', async (req, res) => {
+    try {
+        const news = await searchGoogleNews(req.query.q);
+        res.json({
+            news: news
+        })
+    } catch (error) {
+        console.log(error);
+        res.send('Error al obtener los datos de la API');
+    }
+    
+});
 
-async function searchGoogleNews(query) {
-  try {
-    const res = await customsearch.cse.list({
-      q: query,
-      cx: CX,
-      auth: API_KEY,
-      siteSearch: 'news.google.com',
-      num: 10
-    });
-    console.log('Resultados:', res.data.items);
-  } catch (error) {
-    console.error('Error en la búsqueda:', error);
-  }
-}
-
-searchGoogleNews('Incendios Bolivia');
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
