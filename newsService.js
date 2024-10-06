@@ -13,7 +13,8 @@ async function searchGoogleNews(query) {
       cx: CX,
       auth: API_KEY,
       siteSearch: 'news.google.com',
-      num: 10
+      num: 10,
+      dateRestrict: 'd7'
     });
     // console.log("Resultados", res.data.items)
     // console.log('Metadata:', res.data.items[0].pagemap);
