@@ -7,6 +7,7 @@ const API_KEY = process.env.API_KEY;
 const CX = process.env.CX;
 
 async function searchGoogleNews(query) {
+  console.log(query)
   try {
     const res = await customsearch.cse.list({
       q: query,
@@ -14,8 +15,9 @@ async function searchGoogleNews(query) {
       auth: API_KEY,
       siteSearch: 'news.google.com',
       num: 10,
-      dateRestrict: 'm3',
-      exactTerms: "incendio"
+      // dateRestrict: 'y1',
+      // exactTerms: query,
+      safe:"active"
     });
     // console.log("Resultados", res.data.items)
     // console.log('Metadata:', res.data.items[0].pagemap);
